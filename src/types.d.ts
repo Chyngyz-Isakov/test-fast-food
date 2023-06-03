@@ -1,20 +1,17 @@
+export type FoodConst = {
+    id:string;
+    name:string;
+    price:number;
+    image:img;
+}
+
 export type FastFoodItem = {
     id: string;
     name: string;
-    price: number;
-    image: img;
+    count:number;
 }
 
-export type FastFoodTotal = {
-    id:string;
-    name:string;
-    count:number;
-    totalPrice:number;
-}
-
-export type OrderItem = {
-    id:string;
-    name:string;
-    count:number;
-    price:number;
+export type Count ={
+    name: string;
+    count: number;
 }

@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import {nanoid} from "nanoid";
 import foodImage from './assets/food.png';
 import drinkImage from './assets/drink.png';
+import {Count, FoodConst} from "./types";
 import './App.css';
-import {FastFoodItem, OrderItem} from "./types";
 
 const App = () => {
 
-    const ITEMS: FastFoodItem[] = [
+    const FOOD: FoodConst[] = [
         {id: nanoid(), name: 'Hamburger', price: 80, image: foodImage},
         {id: nanoid(), name: 'CheeseBurger', price: 90, image: foodImage},
         {id: nanoid(), name: 'Fries', price: 45, image: foodImage},
@@ -17,57 +17,50 @@ const App = () => {
     ];
 
 
-    const [fastFood, setFastFood] = useState<OrderItem[]>([
-        {id: nanoid(), name: 'Hamburger', count: 0, price: 0},
-        {id: nanoid(), name: 'CheeseBurger', count: 0, price: 0},
-        {id: nanoid(), name: 'Fries', count: 0, price: 0},
-        {id: nanoid(), name: 'Coffee', count: 0, price: 0},
-        {id: nanoid(), name: 'Tea', count: 0, price: 0},
-        {id: nanoid(), name: 'Cola', count: 0, price: 0},
+    const [fastFood, setFastFood] = useState<Count[]>([
+        {name: 'Hamburger', count: 0},
+        {name: 'CheeseBurger', count: 0},
+        {name: 'Fries', count: 0},
+        {name: 'Coffee', count: 0},
+        {name: 'Tea', count: 0},
+        {name: 'Cola', count: 0},
     ]);
 
 
     const [totalPrice, setTotalPrice] = useState(0);
 
-    const makeOrder = (id: String) => {
-        const choose = ITEMS.find((item) => item.id === id);
-        if (choose) {
-            const selectItem = fastFood.find((item) => item.id === id);
-            if (selectItem) {
-                const updatedOrder = fastFood.map((item) => {
-                    if (item.id === id) {
-                        return {
-                            ...item,
-                            count: item.count + 1,
-                        };
-                    }
-                    return item;
-                });
-                setFastFood(updatedOrder);
-            } else {
-                const newOrderItem = {
-                    ...choose,
-                    count: 1,
-                };
-                setFastFood((prevOrder) => [...prevOrder, newOrderItem]);
-            }
-            setTotalPrice((prevPrice) => prevPrice + choose.price);
-        }
+    const makeOrder = (name: string) => {
+        setFastFood((prevState) => {
+            return prevState.map((item, index) => {
+                if (item.name === name) {
+                    const total = totalPrice + FOOD[index].price;
+                    setTotalPrice(total);
+                    return {
+                        ...item,
+                        count: item.count + 1,
+                    };
+                }
+                return item;
+            });
+        });
     };
-    console.log(totalPrice)
 
-    // const showItems = ITEMS.map((item, index) => {
-    //     return (
-    //         <div onClick={item.id} className='item-choose'>
-    //             <img className='item-img'
-    //                  src={item.image} alt={item.name}
-    //             />
-    //             <p>{item.name}</p>
-    //             <p>Price: {ITEMS[index].price} KGS</p>
-    //         </div>
-    //     )
-    // })
-
+    const removeOrder = (name: string) => {
+        setFastFood((prevState) => {
+            return prevState.map((thing, index) => {
+                if (thing.name === name) {
+                    const priceCount =
+                        totalPrice - fastFood[index].count * FOOD[index].price;
+                    setTotalPrice(priceCount);
+                    return {
+                        ...thing,
+                        count: (thing.count = 0),
+                    };
+                }
+                return thing;
+            });
+        });
+    };
 
     return (
         <div className="App">
@@ -82,18 +75,7 @@ const App = () => {
             </div>
             <div onClick={()=>makeOrder} className='items-wrap'>
                 <h4 className='item-title'>Add Items:</h4>
-                {ITEMS.map((item, index) => {
-                    return (
-                    <div onClick={()=>item.id} key={nanoid()} className='item-choose'>
-                    <img className='item-img'
-                    src={item.image} alt={item.name}
-                    />
-                    <p>{item.name}</p>
-                    <p>Price: {ITEMS[index].price} KGS</p>
-                    </div>
-                    )
-                })
-                }
+
                 {/*{showItems}*/}
             </div>
 
@@ -103,3 +85,4 @@ const App = () => {
 
 
 export default App;
+
