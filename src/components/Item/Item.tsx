@@ -8,17 +8,17 @@ interface IProps {
     makeOrder: (name: string) => void;
 }
 
-const Item: React.FC<IProps> = props => {
+const Item: React.FC<IProps> = ({makeOrder,name,image,price}) => {
     return (
-        <div onClick={() => props.makeOrder(props.name)} className="item-choose">
+        <div onClick={() => makeOrder(name)} className="item-choose">
             <img
                 className="item-img"
-                src={props.image}
-                alt={props.name}
+                src={image}
+                alt={name}
             />
-            <p className="name">{props.name}</p>
+            <p className="name">{name}</p>
             <p>
-                Price: <strong>{props.price} KGS</strong>
+                Price: <strong>{price} KGS</strong>
             </p>
         </div>
     );

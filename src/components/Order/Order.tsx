@@ -1,6 +1,6 @@
 import React from "react";
 import {Count, OrderType} from "../../types";
-import {nanoid} from "nanoid";
+
 
 
 interface IProps {
@@ -8,6 +8,7 @@ interface IProps {
     totalCount: Count[];
     food: OrderType[];
     delete: (name: string) => void;
+    key:string;
 }
 
 const Order: React.FC<IProps> = (props) => {
@@ -21,7 +22,7 @@ const Order: React.FC<IProps> = (props) => {
                 for (let i = 0; i < item.count; i++) {
                     const orderPrice = item.count * props.food[index].price;
                     return (
-                        <p key={nanoid()}>
+                        <p key={props.key}>
                             <b style={{marginRight: '10px'}}>{item.name}:</b>
                             <b style={{marginRight: '10px'}}>x{item.count}</b>
 

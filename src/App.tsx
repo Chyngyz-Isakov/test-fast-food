@@ -84,6 +84,7 @@ const App = () => {
             <div className='order-wrap'>
                 <h4 className='order-title'>Order Details:</h4>
                 <Order
+                    key={nanoid()}
                     price={totalPrice}
                     totalCount={fastFood}
                     food={FOOD}
