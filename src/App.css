@@ -6,6 +6,7 @@
 }
 
 .order-wrap {
+  text-align: start;
   position: relative;
   width: 400px;
   border: 3px solid grey;
@@ -55,3 +56,10 @@
   padding: 10px;
   cursor: pointer;
 }
+
+.total-price {
+  color: green;
+  font-weight: bold;
+  text-align: right;
+}
+

@@ -3,7 +3,9 @@ import {nanoid} from "nanoid";
 import foodImage from './assets/food.png';
 import drinkImage from './assets/drink.png';
 import {Count, FoodConst} from "./types";
+import Item from "./components/Item/Item";
 import './App.css';
+import Order from "./components/Order/Order";
 
 const App = () => {
 
@@ -27,6 +29,7 @@ const App = () => {
     ]);
 
 
+
     const [totalPrice, setTotalPrice] = useState(0);
 
     const makeOrder = (name: string) => {
@@ -47,38 +50,50 @@ const App = () => {
 
     const removeOrder = (name: string) => {
         setFastFood((prevState) => {
-            return prevState.map((thing, index) => {
-                if (thing.name === name) {
+            return prevState.map((item, index) => {
+                if (item.name === name) {
                     const priceCount =
                         totalPrice - fastFood[index].count * FOOD[index].price;
                     setTotalPrice(priceCount);
                     return {
-                        ...thing,
-                        count: (thing.count = 0),
+                        ...item,
+                        count:  0,
                     };
                 }
-                return thing;
+                return item;
             });
         });
     };
+
+    const showItems = FOOD.map((item) => {
+        return (
+            <Item
+                name={item.name}
+                price={item.price}
+                image={item.image}
+                key={item.id}
+                makeOrder={makeOrder}
+            />
+        );
+    });
+
+
 
     return (
         <div className="App">
             <div className='order-wrap'>
                 <h4 className='order-title'>Order Details:</h4>
-                {fastFood.map(item => (
-                    <div key={item.id}>
-                        {item.name}: {item.count}
-                        <button>del</button>
-                    </div>
-                ))}
+                <Order
+                    price={totalPrice}
+                    totalCount={fastFood}
+                    food={FOOD}
+                    delete={removeOrder}
+                />
             </div>
-            <div onClick={()=>makeOrder} className='items-wrap'>
+            <div className='items-wrap'>
                 <h4 className='item-title'>Add Items:</h4>
-
-                {/*{showItems}*/}
+                {showItems}
             </div>
-
         </div>
     );
 };

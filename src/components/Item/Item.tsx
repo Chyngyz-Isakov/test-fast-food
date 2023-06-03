@@ -10,10 +10,9 @@ interface IProps {
 
 const Item: React.FC<IProps> = props => {
     return (
-        <div className="item-choose">
+        <div onClick={() => props.makeOrder(props.name)} className="item-choose">
             <img
                 className="item-img"
-                onClick={() => props.makeOrder(props.name)}
                 src={props.image}
                 alt="meat"
             />
