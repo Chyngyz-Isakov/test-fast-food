@@ -4,8 +4,8 @@ import foodImage from './assets/food.png';
 import drinkImage from './assets/drink.png';
 import {Count, FoodConst} from "./types";
 import Item from "./components/Item/Item";
-import './App.css';
 import Order from "./components/Order/Order";
+import './App.css';
 
 const App = () => {
 
@@ -18,7 +18,6 @@ const App = () => {
         {id: nanoid(), name: 'Cola', price: 40, image: drinkImage},
     ];
 
-
     const [fastFood, setFastFood] = useState<Count[]>([
         {name: 'Hamburger', count: 0},
         {name: 'CheeseBurger', count: 0},
@@ -27,8 +26,6 @@ const App = () => {
         {name: 'Tea', count: 0},
         {name: 'Cola', count: 0},
     ]);
-
-
 
     const [totalPrice, setTotalPrice] = useState(0);
 
@@ -77,8 +74,6 @@ const App = () => {
         );
     });
 
-
-
     return (
         <div className="App">
             <div className='order-wrap'>
@@ -93,12 +88,11 @@ const App = () => {
             </div>
             <div className='items-wrap'>
                 <h4 className='item-title'>Add Items:</h4>
-                {showItems}
+                {showItems};
             </div>
         </div>
     );
 };
-
 
 export default App;
 

@@ -2,7 +2,6 @@ import React from "react";
 import {Count, OrderType} from "../../types";
 
 
-
 interface IProps {
     price: number;
     totalCount: Count[];
@@ -20,7 +19,7 @@ const Order: React.FC<IProps> = (props) => {
                     return <p>Empty order</p>;
                 }
                 for (let i = 0; i < item.count; i++) {
-                    const orderPrice = item.count * props.food[index].price;
+                    const orderPrice = item.count * props.food[i].price;
                     return (
                         <p key={props.key}>
                             <b style={{marginRight: '10px'}}>{item.name}:</b>
@@ -42,7 +41,7 @@ const Order: React.FC<IProps> = (props) => {
             })}
         </div>
     );
-}
-    ;
+};
+
 
     export default Order;
