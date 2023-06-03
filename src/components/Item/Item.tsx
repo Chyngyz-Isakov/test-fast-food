@@ -14,7 +14,7 @@ const Item: React.FC<IProps> = props => {
             <img
                 className="item-img"
                 src={props.image}
-                alt="meat"
+                alt={props.name}
             />
             <p className="name">{props.name}</p>
             <p>

@@ -37,7 +37,7 @@ const Order: React.FC<IProps> = (props) => {
 
                         </p>
                     );
-                }
+                }return <p>Empty Item</p>
             })}
         </div>
     );
