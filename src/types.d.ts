@@ -5,10 +5,11 @@ export type FoodConst = {
     image:img;
 }
 
-export type FastFoodItem = {
-    id: string;
+export type OrderType = {
     name: string;
-    count:number;
+    price: number;
+    image: string;
+    id: string;
 }
 
 export type Count ={
